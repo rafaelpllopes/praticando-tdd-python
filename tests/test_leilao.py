@@ -1,6 +1,8 @@
 from unittest import TestCase
 
 from src.leilao.dominio import Usuario, Lance, Leilao, Avaliador
+from src.leilao.exececoes import LanceInvalido
+
 
 class Test_Leilao(TestCase):
 
@@ -23,7 +25,7 @@ class Test_Leilao(TestCase):
 
     def test_nao_deve_permitir_em_ordem_decrescente(self):
 
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(self.lance_do_usuario2)
             self.leilao.propoe(self.lance_do_usuario1)
             self.assertEqual(100.0, self.leilao.menor_lance)
@@ -64,6 +66,6 @@ class Test_Leilao(TestCase):
             quantidade_de_lances_recebidos = len(self.leilao.lances)
             self.assertEqual(1, quantidade_de_lances_recebidos)
         """
-        with self.assertRaises(ValueError):
+        with self.assertRaises(LanceInvalido):
             self.leilao.propoe(self.lance_do_usuario1)
             self.leilao.propoe(self.lance_do_usuario1)
